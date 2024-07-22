@@ -24,7 +24,7 @@ class DeleteModal extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Center(
-                  child: Text('هل انت متأكد برغبتك في حذف $title', style: TextStyle(
+                  child: Text(' تأكيد حذف $title', style: TextStyle(
                       fontSize: 19, color: Colors.redAccent, fontWeight: FontWeight.w900
                   ),),
                 ),
@@ -39,9 +39,8 @@ class DeleteModal extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.redAccent,
-                        minimumSize: Size(100, 40),
                     ),
-                    child: Text('حذف', style: TextStyle(color: Colors.white, fontSize: 17),)
+                    child: Text('حذف', style: TextStyle(color: Colors.white),)
                 ),
               ),
             ]

@@ -10,7 +10,7 @@ class StoreApi {
 
       return response;
     } catch (err){
-      throw err;
+      rethrow;
     }
   }
 
@@ -20,7 +20,7 @@ class StoreApi {
 
       return response;
     } catch (err){
-      throw err;
+      rethrow;
     }
   }
 

@@ -10,7 +10,7 @@ class AccountApi {
 
       return response;
     } catch (e){
-      throw(e);
+      rethrow;
     }
   }
 
@@ -20,7 +20,7 @@ class AccountApi {
 
       return response;
     } catch (e){
-      throw(e);
+      rethrow;
     }
   }
 
@@ -30,7 +30,7 @@ class AccountApi {
 
       return response;
     } catch (e){
-      return e;
+      rethrow;
     }
   }
 
@@ -40,7 +40,7 @@ class AccountApi {
 
       return response;
     } catch (e){
-      return e;
+      rethrow;
     }
   }
 

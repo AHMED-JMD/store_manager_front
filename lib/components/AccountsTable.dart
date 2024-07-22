@@ -68,6 +68,7 @@ class _AccountsTableState extends State<AccountsTable> {
             source: source,
             showFirstLastButtons: true,
             showCheckboxColumn: true,
+            addEmptyRows: false,
             rowsPerPage: rowsPerPage,
             availableRowsPerPage: const [5, 10, 25],
             onRowsPerPageChanged: (newRowsPerPage) {

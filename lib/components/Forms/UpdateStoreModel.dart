@@ -238,8 +238,8 @@ class _UpdateStoreState extends State<UpdateStore> {
         onPressed: (){
           updateModal(context);
         },
-        icon: Icon(Icons.more_horiz, color: Colors.lightGreen[900]),
-        label: Text('التفاصيل', style: TextStyle(color: Colors.lightGreen[900]),)
+        icon: Icon(Icons.more_horiz, color: Colors.green[900]),
+        label: Text('التفاصيل', style: TextStyle(color: Colors.green[900]),)
     );
   }
 }

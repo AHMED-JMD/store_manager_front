@@ -5,6 +5,7 @@ import 'package:store_manager/API/store_api.dart';
 import 'package:store_manager/components/Forms/AddStoreModel.dart';
 import 'package:store_manager/components/Forms/deleteModal.dart';
 import 'package:store_manager/components/Forms/UpdateStoreModel.dart';
+import 'package:store_manager/components/Header.dart';
 import 'package:store_manager/components/SideBar.dart';
 import 'package:store_manager/models/stores.dart';
 
@@ -78,19 +79,8 @@ class _SettingsState extends State<Settings> {
               Expanded(
                 child: ListView(
                   children: [
-                    SizedBox(height: 20,),
-                    Text(
-                        'ادارة المخازن',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 25),
-                    ),
-                    Divider(
-                      indent: 180,
-                      endIndent: 180,
-                      thickness: 2,
-                      color: Colors.lightGreen,
-                    ),
-                    SizedBox(height: 100,),
+                    myHeader('ادارة المخازن',),
+                    SizedBox(height: 10,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -100,40 +90,113 @@ class _SettingsState extends State<Settings> {
                         )
                       ],
                     ),
+                    SizedBox(height: 5,),
+                    Center(
+                      child: Container(
+                        width: 400,
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            labelText: 'ابحث عن صنف',
+                            suffixIcon: Icon(Icons.search_outlined)
+                          ),
+                          keyboardType: TextInputType.text,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10,),
                     data.length != 0 ?
                     Container(
                       padding: EdgeInsets.only(left: 50, right: 50, top: 20),
-                      height: 700,
-                      child: ListView.builder(
+                      height: 800,
+                      child: GridView.builder(
                           itemCount: data.length,
-                          itemBuilder: (context, index ){
-                            return Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Card(
-                                elevation: 8,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(0.0),
-                                  child: ListTile(
-                                    leading: Icon(Icons.store),
-                                    title: Text(data[index].name, style: TextStyle(fontSize: 19),),
-                                    subtitle: Text(' سعر البيع: ${data[index].sellPrice}'),
-                                    trailing: Container(
-                                      width: 300,
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        children: [
-                                          UpdateStore(GetItems: GetItems, title: data[index].name, id: data[index].id),
-                                          SizedBox(width: 7,),
-                                          DeleteModal(title: data[index].name, id: data[index].id, deleteFunc: DeleteItems)
-                                        ]
-                                      ),
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 4,
+                              crossAxisSpacing: 10.0,
+                          ),
+                          itemBuilder: (context, index){
+                            return Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              child: ListView(
+                                children: [
+                                  Image.asset(
+                                    'assets/images/storeImage.jpg',
+                                    height: 100,
+                                    width: 300,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  // Add a container with padding that contains the card's title, text, and buttons
+                                  Container(
+                                    padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "${data[index].name}",
+                                              style: TextStyle(
+                                                fontSize: 24,
+                                                color: Colors.grey[800],
+                                              ),
+                                            ),
+                                            Text(
+                                              "${data[index].sellPrice} جنيه ",
+                                              style: TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.grey[800],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        // Add a space between the title and the text
+                                        SizedBox(height: 10),
+                                        Column(
+                                          children: [
+                                            Container(
+                                              width: 250,
+                                              child: Text(
+                                                " سعر الشراء ${data[index].price}",
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                  color: Colors.grey[700],
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(height: 5,),
+                                            Container(
+                                              width: 250,
+                                              child: Text(
+                                                " موقع الصنف ${data[index].location}",
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                  color: Colors.grey[700],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: 12,),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                              UpdateStore(GetItems: GetItems, title: data[index].name, id: data[index].id,),
+                                              DeleteModal(title: data[index].name, id: data[index].id, deleteFunc: DeleteItems,),
+                                            ],
+                                        ),
+                                        SizedBox(height: 10,),
+                                      ],
                                     ),
                                   ),
-                                ),
+                                ],
                               ),
                             );
                           }
-                      ),
+                      )
                     ) : Center(child: CircularProgressIndicator(),) ,
                   ]
                 )

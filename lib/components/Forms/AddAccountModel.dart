@@ -167,7 +167,7 @@ class _AddAccountState extends State<AddAccount> {
         addModal(context);
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.lightGreen[700],
+        backgroundColor: Colors.green,
       ),
       icon: Icon(Icons.add, color: Colors.white,),
       label: Text('حساب جديد', style: TextStyle(color: Colors.white),),

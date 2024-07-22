@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sidebarx/sidebarx.dart';
 import 'package:store_manager/components/AccountsTable.dart';
-import 'package:store_manager/components/Expenses.dart';
+import 'package:store_manager/components/Header.dart';
 import 'package:store_manager/components/SideBar.dart';
 
 class Accounts extends StatefulWidget {
@@ -26,24 +26,12 @@ class _AccountsState extends State<Accounts> {
               Expanded(
                 child: ListView(
                   children: [
-                    SizedBox(height: 20,),
-                    Text('العملاء والمنصرفات',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 23),
-                    ),
-                    Divider(color: Colors.green, indent: 150, endIndent: 150, thickness: 2,),
+                    myHeader('العملاء والمنصرفات',),
                     SizedBox(height: 70,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Container(
-                          height: 700,
-                          width: 620,
-                          child: AccountsTable(),
-                        ),
-                        Expenses(),
-                      ],
-                    )
+                    Container(
+                      padding: EdgeInsets.all(20),
+                      child: AccountsTable(),
+                    ),
                   ],
                 )
               )

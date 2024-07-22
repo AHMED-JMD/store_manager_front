@@ -26,14 +26,22 @@ class _ExpensesState extends State<Expenses> {
         const SizedBox(height: 20,),
         Container(
           height: 700,
-          width: 450,
+          width: 350,
           child: ListView.builder(
               itemCount: numbers.length,
               itemBuilder: (context, index) {
                 return Card(
                     elevation: 6,
-                    child: ListTile(
-                      title: Text(numbers[index].toString()),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          title: Text(' القيمة: ${numbers[index].toString()}'),
+                          subtitle: Text('اسم المنصرف$index'),
+                          selected: index == 0 ? true : false,
+                          selectedColor: Colors.grey,
+                          leading: Icon(Icons.arrow_downward),
+                        ),
+                      ],
                     )
                 );
               }

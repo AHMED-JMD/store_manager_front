@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:store_manager/components/Forms/AddTrans.dart';
 import 'package:store_manager/screens/accounts.dart';
 import 'package:store_manager/screens/home.dart';
 import 'package:store_manager/screens/settings.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => HomePage(),
         '/store': (context) => MyStore(),
+        '/add-tran': (context) => AddTransact(),
         '/accounts': (context) => Accounts(),
         '/settings' : (context) => Settings(),
       },

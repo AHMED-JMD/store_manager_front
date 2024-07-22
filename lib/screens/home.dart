@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sidebarx/sidebarx.dart';
+import 'package:store_manager/components/MyCard.dart';
 import 'package:store_manager/components/SideBar.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,9 +16,6 @@ class _HomePageState extends State<HomePage> {
   final SidebarXController controller = SidebarXController(selectedIndex: 0,);
   @override
   Widget build(BuildContext context) {
-    final _width = MediaQuery.of(context).size.width;
-    final _height = MediaQuery.of(context).size.height;
-
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -49,57 +47,10 @@ class _HomePageState extends State<HomePage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
+                      MyCard(width_num: 4, height_num: 4.2, title: 124, subtitle: 'اجمالي مخزون الفلير'),
+                      MyCard(width_num: 4, height_num: 4.2, title: 15300, subtitle: 'قيمة المخزون بالدرهم'),
                       Expanded(
-                        child: Container(
-                          height: _height/4.2,
-                          child: Card(
-                              elevation: 10,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    '12,451,987 SDG',
-                                    style: TextStyle(fontSize: 44, color: Colors.lightGreen, fontWeight: FontWeight.bold),
-                                  ),
-                                  Text('قيمة المخزون بالجنيه')
-                                ],
-                              ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: _width/4,
-                        height: _height/4.2,
-                        child: Card(
-                          elevation: 10,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                '15,300 AED',
-                                style: TextStyle(fontSize: 44, color: Colors.lightGreen, fontWeight: FontWeight.bold),
-                              ),
-                              Text('قيمة المخزون بالدرهم')
-                            ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: _width/4,
-                        height: _height/4.2,
-                        child: Card(
-                          elevation: 10,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                '124',
-                                style: TextStyle(fontSize: 44, color: Colors.lightGreen, fontWeight: FontWeight.bold),
-                              ),
-                              Text('اجمالي مخزون الفلير')
-                            ],
-                          ),
-                        ),
+                        child: MyCard(width_num: 1, height_num: 4.2, title: 14940300, subtitle: 'قيمة المخزون بالسوداني'),
                       ),
                     ],
                   ),
@@ -120,57 +71,11 @@ class _HomePageState extends State<HomePage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Container(
-                        width: _width/4,
-                        height: _height/4.2,
-                        child: Card(
-                          elevation: 10,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                '30',
-                                style: TextStyle(fontSize: 44, color: Colors.lightGreen, fontWeight: FontWeight.bold),
-                              ),
-                              Text('اجمالي مبيعات الفلير')
-                            ],
-                          ),
-                        ),
+                      Expanded(
+                          child: MyCard(width_num: 1, height_num: 4.2, title: 1350114, subtitle: 'ارباح الشهر بالسوداني')
                       ),
-                      Container(
-                        width: _width/4,
-                        height: _height/4.2,
-                        child: Card(
-                          elevation: 10,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                '1,350,114 SDG',
-                                style: TextStyle(fontSize: 40, color: Colors.lightGreen, fontWeight: FontWeight.bold),
-                              ),
-                              Text('ارباح الشهر بالسوداني')
-                            ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: _width/4,
-                        height: _height/4.2,
-                        child: Card(
-                          elevation: 10,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                '2,540 AED',
-                                style: TextStyle(fontSize: 40, color: Colors.lightGreen, fontWeight: FontWeight.bold),
-                              ),
-                              Text('ارباح الشهر بالدرهم')
-                            ],
-                          ),
-                        ),
-                      ),
+                      MyCard(width_num: 4, height_num: 4.2, title: 2540, subtitle: 'ارباح الشهر بالدرهم'),
+                      MyCard(width_num: 4, height_num: 4.2, title: 30, subtitle: 'اجمالي مبيعات الفلير'),
                     ],
                   )
                 ],

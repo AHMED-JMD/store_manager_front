@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sidebarx/sidebarx.dart';
+import 'package:store_manager/components/Header.dart';
 import 'package:store_manager/components/SideBar.dart';
 import 'package:store_manager/components/TransTable.dart';
 
@@ -22,28 +23,13 @@ class _MyStoreState extends State<MyStore> {
             children: [
               MySideBar(controller: controller),
               Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(height: 60,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20.0),
-                            child: ElevatedButton(
-                                onPressed: (){},
-                                child: Text('اضافة معاملة')
-                            ),
-                          ),
-                        ],
-                      ),
-                      Container(
-                          padding: EdgeInsets.all(20),
-                          child: TransTable()
-                      ),
+                child: ListView(
+                  children: [
+                      myHeader('المعاملات'),
+                      SizedBox(height: 20,),
+
+                      TransTable(),
                     ],
-                  ),
                 )
               )
             ],

@@ -14,18 +14,18 @@ class MySideBar extends StatelessWidget {
         margin: EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: Color.fromRGBO(2, 48, 71, 1),
-          borderRadius: BorderRadius.circular(10)
+          borderRadius: BorderRadius.circular(8)
         ),
         textStyle: TextStyle(fontSize: 16, color: Colors.white),
         selectedTextStyle: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
         hoverTextStyle: TextStyle(fontSize: 16),
         itemTextPadding: EdgeInsets.only(right: 10),
         selectedItemTextPadding: EdgeInsets.only(right: 20),
-        iconTheme: IconThemeData(size: 30, color: Colors.lightGreen),
+        iconTheme: IconThemeData(size: 30, color: Colors.green),
         selectedIconTheme: IconThemeData(size: 40, color: Colors.white),
         itemDecoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.lightGreen)
+          border: Border.all(color: Colors.green)
         ),
         selectedItemDecoration: BoxDecoration(
             color: Colors.lightGreen,
@@ -33,7 +33,7 @@ class MySideBar extends StatelessWidget {
             border: Border.all(color: Colors.lightGreen)
         )
       ),
-      animationDuration: Duration(milliseconds: 250) ,
+      animationDuration: Duration(milliseconds: 200) ,
       extendedTheme: SidebarXTheme(
         width: 200
       ),
@@ -42,7 +42,7 @@ class MySideBar extends StatelessWidget {
           height: 100,
         );
       },
-      footerDivider: Divider(thickness: 2, color: Colors.lightGreen,),
+      footerDivider: Divider(thickness: 2, color: Colors.green,),
       items: [
         SidebarXItem(
             icon: Icons.home_work,
