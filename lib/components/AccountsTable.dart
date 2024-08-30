@@ -2,6 +2,7 @@ import 'package:advanced_datatable/advanced_datatable_source.dart';
 import 'package:advanced_datatable/datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:store_manager/API/account_api.dart';
+import 'package:store_manager/components/Formatters.dart';
 import 'package:store_manager/components/Forms/AddAccountModel.dart';
 import 'package:store_manager/components/Forms/UpdateAccount.dart';
 import 'package:store_manager/components/Forms/deleteModal.dart';
@@ -102,7 +103,7 @@ class AccountSource extends AdvancedDataTableSource<Account>{
         cells: [
           DataCell(Text(currentRowData.name)),
           DataCell(Text(currentRowData.phoneNum)),
-          DataCell(Text(currentRowData.account.toString(), style: const TextStyle(fontSize: 19, fontWeight: FontWeight.bold),)),
+          DataCell(Text(moneyFormatter(currentRowData.account), style: const TextStyle(fontSize: 19, fontWeight: FontWeight.bold),)),
           DataCell(Row(
             children: [
               UpdateAccount(title: currentRowData.name, id: currentRowData.id, refresh: refresh,),

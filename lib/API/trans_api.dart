@@ -14,9 +14,19 @@ class TranApi {
     }
   }
 
-  static Future getAll () async {
+  static Future getAll (date) async {
     try{
-      final response = await dio.get(apiUrl);
+      final response = await dio.get("$apiUrl?date=$date");
+
+      return response;
+    } catch (e) {
+      return e;
+    }
+  }
+
+  static Future filter (data) async {
+    try{
+      final response = await dio.post("$apiUrl/filter", data: data);
 
       return response;
     } catch (e) {
