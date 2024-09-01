@@ -5,6 +5,7 @@ import 'package:store_manager/API/store_api.dart';
 import 'package:store_manager/components/MyCard.dart';
 import 'package:store_manager/components/SideBar.dart';
 import 'package:store_manager/models/stores.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,17 +18,33 @@ class _HomePageState extends State<HomePage> {
   final SidebarXController controller = SidebarXController(
     selectedIndex: 0,
   );
+
+  double? uae_curr;
+  int total_sales = 0;
   int total_store = 0;
   int sdg_amount = 0;
   double uae_amount = 0.0;
+  int sdg_profit = 0;
+  double uae_profit = 0;
   bool isLoading = false;
   List<Store> items = [];
 
   @override
   void initState() {
+    //set uae cuurency from prefrence
+    _loadUAECurr();
+    //--
     homeReport('الفلير');
     getItems();
     super.initState();
+  }
+
+//shared prefrence
+  Future _loadUAECurr() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      uae_curr = prefs.getDouble("uae_curr") ?? 0;
+    });
   }
 
 //server function
@@ -38,9 +55,12 @@ class _HomePageState extends State<HomePage> {
 
     if (response.statusCode == 200) {
       setState(() {
+        total_sales = response.data['total_sales'];
         total_store = response.data['total_store'];
-        sdg_amount = total_store * 790000;
-        uae_amount = total_store * 725;
+        sdg_amount = response.data['sdg_amount'];
+        uae_amount = total_store * uae_curr!;
+        sdg_profit = response.data['sdg_profit'];
+        uae_profit = response.data['sdg_profit'] / uae_curr!;
       });
     }
   }
@@ -79,6 +99,7 @@ class _HomePageState extends State<HomePage> {
                 height: 70,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
                     width: 280,
@@ -94,7 +115,48 @@ class _HomePageState extends State<HomePage> {
                         homeReport(val!);
                       },
                     ),
-                  )
+                  ),
+                  uae_curr != null
+                      ? Row(
+                          children: [
+                            Container(
+                              width: 150,
+                              child: TextFormField(
+                                initialValue: uae_curr.toString(),
+                                decoration:
+                                    InputDecoration(labelText: "ريت الدرهم"),
+                                onChanged: (value) async {
+                                  setState(() {
+                                    uae_curr = double.parse(value);
+                                  });
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            ElevatedButton(
+                                onPressed: () async {
+                                  final prefs =
+                                      await SharedPreferences.getInstance();
+
+                                  prefs.setDouble('uae_curr', uae_curr!);
+
+                                  Navigator.pushReplacementNamed(context, '/');
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.greenAccent,
+                                    minimumSize: Size(80, 50)),
+                                child: Text(
+                                  'تم',
+                                  style: TextStyle(color: Colors.white),
+                                )),
+                            SizedBox(
+                              width: 15,
+                            )
+                          ],
+                        )
+                      : CircularProgressIndicator()
                 ],
               ),
               SizedBox(
@@ -111,7 +173,7 @@ class _HomePageState extends State<HomePage> {
                   MyCard(
                     width_num: 4,
                     height_num: 4.2,
-                    title: uae_amount.toDouble(),
+                    title: uae_amount,
                     subtitle: 'قيمة المخزون بالدرهم',
                     Icon: Icon(
                       Icons.monetization_on,
@@ -151,22 +213,22 @@ class _HomePageState extends State<HomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
+                  MyCard(
+                      width_num: 4,
+                      height_num: 4.2,
+                      title: total_sales.toDouble(),
+                      subtitle: 'اجمالي مبيعات الفلير'),
+                  MyCard(
+                      width_num: 4,
+                      height_num: 4.2,
+                      title: uae_profit,
+                      subtitle: 'ارباح الشهر بالدرهم'),
                   Expanded(
                       child: MyCard(
                           width_num: 1,
                           height_num: 4.2,
-                          title: 1350114,
+                          title: sdg_profit.toDouble(),
                           subtitle: 'ارباح الشهر بالسوداني')),
-                  MyCard(
-                      width_num: 4,
-                      height_num: 4.2,
-                      title: 2540,
-                      subtitle: 'ارباح الشهر بالدرهم'),
-                  MyCard(
-                      width_num: 4,
-                      height_num: 4.2,
-                      title: 30,
-                      subtitle: 'اجمالي مبيعات الفلير'),
                 ],
               )
             ],

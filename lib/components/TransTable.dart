@@ -414,7 +414,7 @@ class _TransTableState extends State<TransTable> {
                     )),
                     DataColumn(
                         label: Text(
-                      'المندوب',
+                      'الشريك',
                       style: TextStyle(fontSize: 18),
                     )),
                     DataColumn(label: SizedBox()),
@@ -472,15 +472,15 @@ class TransSource extends AdvancedDataTableSource<Transaction> {
         style: TextStyle(fontSize: 17),
       )),
       DataCell(Text(
-        moneyFormatter(currentRowData.amount),
+        moneyFormatter(currentRowData.amount.toDouble()),
         style: TextStyle(fontSize: 17),
       )),
       DataCell(Text(
-        moneyFormatter(currentRowData.price),
+        moneyFormatter(currentRowData.price.toDouble()),
         style: TextStyle(fontSize: 17),
       )),
       DataCell(Text(
-        "${moneyFormatter(currentRowData.price * currentRowData.amount)}",
+        "${moneyFormatter(currentRowData.price.toDouble() * currentRowData.amount)}",
         style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
       )),
       DataCell(Text(
