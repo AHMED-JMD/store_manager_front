@@ -88,7 +88,16 @@ class _AccountsTableState extends State<AccountsTable> {
                   DataColumn(label: Text('')),
                 ],
               )
-            : const CircularProgressIndicator(),
+            : Center(
+                child: Container(
+                  padding: EdgeInsets.all(15),
+                  color: Colors.grey[200],
+                  child: Text(
+                    'لايوجد حسابات الان',
+                    style: TextStyle(fontSize: 19),
+                  ),
+                ),
+              ),
       ],
     );
   }
@@ -119,7 +128,12 @@ class AccountSource extends AdvancedDataTableSource<Account> {
           DeleteModal(
               title: ' حساب ${currentRowData.name}',
               id: currentRowData.id,
-              deleteFunc: deleteAccount)
+              deleteFunc: deleteAccount),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.more_horiz),
+            tooltip: 'التفاصيل',
+          ),
         ],
       ))
     ]);

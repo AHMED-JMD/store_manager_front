@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:store_manager/components/Forms/AddTrans.dart';
 import 'package:store_manager/screens/accounts.dart';
-import 'package:store_manager/screens/home.dart';
+import 'package:store_manager/screens/report.dart';
 import 'package:store_manager/screens/settings.dart';
 import 'package:store_manager/screens/trans.dart';
 
@@ -20,15 +20,17 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         // scaffoldBackgroundColor: Color.fromRGBO(2, 48, 71, 1),
         fontFamily: 'Cairo',
-        colorScheme: ColorScheme.fromSeed(seedColor: Color.fromRGBO(2, 48, 71, 1),),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Color.fromRGBO(2, 48, 71, 1),
+        ),
         useMaterial3: true,
       ),
       routes: {
-        '/': (context) => HomePage(),
+        '/': (context) => Settings(),
         '/store': (context) => MyStore(),
         '/add-tran': (context) => AddTransact(),
         '/accounts': (context) => Accounts(),
-        '/settings' : (context) => Settings(),
+        '/settings': (context) => Settings(),
       },
     );
   }

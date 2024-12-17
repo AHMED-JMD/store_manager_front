@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:store_manager/API/account_api.dart';
 
 class AddAccount extends StatefulWidget {
@@ -17,7 +18,7 @@ class _AddAccountState extends State<AddAccount> {
   final accountController = TextEditingController(text: '0');
 
   @override
-  void dispose () {
+  void dispose() {
     nameController.dispose();
     phoneController.dispose();
     accountController.dispose();
@@ -32,36 +33,30 @@ class _AddAccountState extends State<AddAccount> {
     Navigator.pop(context);
     widget.refresh(false);
 
-    if(response is DioException){
+    if (response is DioException) {
       DioException err = response;
 
-      return ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            content: Center(
-              child: Text('${err.response!.data['message']}', style: const TextStyle(
-                fontSize: 20,
-                color: Colors.white
-                ),
-              ),
-            ),
-          backgroundColor: Colors.redAccent,
-          duration: const Duration(seconds: 2),
-        )
-      );
-    }else{
-      return ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Center(
-              child: Text('تمت الاضافة بنجاح', style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white
-              ),
-              ),
-            ),
-            backgroundColor: Colors.green,
-            duration: Duration(milliseconds: 800),
-          )
-      );
+      return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Center(
+          child: Text(
+            '${err.response!.data['message']}',
+            style: const TextStyle(fontSize: 20, color: Colors.white),
+          ),
+        ),
+        backgroundColor: Colors.redAccent,
+        duration: const Duration(seconds: 2),
+      ));
+    } else {
+      return ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Center(
+          child: Text(
+            'تمت الاضافة بنجاح',
+            style: TextStyle(fontSize: 20, color: Colors.white),
+          ),
+        ),
+        backgroundColor: Colors.green,
+        duration: Duration(milliseconds: 800),
+      ));
     }
   }
 
@@ -73,7 +68,11 @@ class _AddAccountState extends State<AddAccount> {
           return Directionality(
             textDirection: TextDirection.rtl,
             child: SimpleDialog(
-              title: const Text('حساب جديد', textAlign: TextAlign.center, style: TextStyle(fontSize: 25),),
+              title: const Text(
+                'حساب جديد',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 25),
+              ),
               elevation: 5,
               children: [
                 Form(
@@ -85,56 +84,74 @@ class _AddAccountState extends State<AddAccount> {
                           child: TextFormField(
                             controller: nameController,
                             decoration: InputDecoration(
-                              labelText: 'اسم العميل',
-                              icon: Icon(Icons.person_pin, color: Colors.green,),
-                              contentPadding: EdgeInsets.only(top: 2)
-                            ),
+                                labelText: 'اسم العميل',
+                                icon: Icon(
+                                  Icons.person_pin,
+                                  color: Colors.green,
+                                ),
+                                contentPadding: EdgeInsets.only(top: 2)),
                             keyboardType: TextInputType.text,
-                            validator: (val){
-                              if(val!.isEmpty) return 'الرجاء ادخال الاسم';
+                            validator: (val) {
+                              if (val!.isEmpty) return 'الرجاء ادخال الاسم';
                               return null;
                             },
                           ),
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(
+                          height: 10,
+                        ),
                         Container(
                           width: 300,
                           child: TextFormField(
                             controller: phoneController,
                             decoration: InputDecoration(
-                              labelText: 'رقم الهاتف',
-                              icon: Icon(Icons.phone_android, color: Colors.green,),
-                              contentPadding: EdgeInsets.only(top: 2)
-                            ),
+                                labelText: 'رقم الهاتف',
+                                icon: Icon(
+                                  Icons.phone_android,
+                                  color: Colors.green,
+                                ),
+                                contentPadding: EdgeInsets.only(top: 2)),
                             keyboardType: TextInputType.phone,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
                             validator: (val) {
-                              if(val!.isEmpty) return 'الرجاء ادخال رقم الهاتف';
+                              if (val!.isEmpty)
+                                return 'الرجاء ادخال رقم الهاتف';
                               return null;
                             },
                           ),
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(
+                          height: 10,
+                        ),
                         Container(
                           width: 300,
                           child: TextFormField(
                             controller: accountController,
                             decoration: InputDecoration(
-                              labelText: 'الحساب',
-                              icon: Icon(Icons.monetization_on, color: Colors.green,),
-                              contentPadding: EdgeInsets.only(top: 2)
-                            ),
+                                labelText: 'الحساب',
+                                icon: Icon(
+                                  Icons.monetization_on,
+                                  color: Colors.green,
+                                ),
+                                contentPadding: EdgeInsets.only(top: 2)),
                             keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
                             validator: (val) {
-                              if(val!.isEmpty) return 'الرجاء ادخال الحساب';
+                              if (val!.isEmpty) return 'الرجاء ادخال الحساب';
                               return null;
                             },
                           ),
                         ),
-                        SizedBox(height: 50,),
-
+                        SizedBox(
+                          height: 50,
+                        ),
                         ElevatedButton(
                             onPressed: () async {
-                              if(_formKey.currentState!.validate()){
+                              if (_formKey.currentState!.validate()) {
                                 Map data = {};
                                 data['name'] = nameController.text;
                                 data['phone_num'] = phoneController.text;
@@ -145,32 +162,38 @@ class _AddAccountState extends State<AddAccount> {
                               }
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color.fromRGBO(2, 48, 71, 1),
-                              minimumSize: Size(150, 45)
-                            ),
-                            child: Text('اضافة', style: TextStyle(color: Colors.white, fontSize: 17),)
-                        )
+                                backgroundColor: Color.fromRGBO(2, 48, 71, 1),
+                                minimumSize: Size(150, 45)),
+                            child: Text(
+                              'اضافة',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 17),
+                            ))
                       ],
-                    )
-                )
+                    ))
               ],
             ),
           );
-        }
-    );
+        });
   }
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
-      onPressed: (){
+      onPressed: () {
         addModal(context);
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.green,
       ),
-      icon: Icon(Icons.add, color: Colors.white,),
-      label: Text('حساب جديد', style: TextStyle(color: Colors.white),),
+      icon: Icon(
+        Icons.add,
+        color: Colors.white,
+      ),
+      label: Text(
+        'حساب جديد',
+        style: TextStyle(color: Colors.white),
+      ),
     );
   }
 }

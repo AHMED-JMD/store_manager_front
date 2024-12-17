@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:store_manager/components/Forms/UpdateStoreModel.dart';
 import 'package:store_manager/components/Forms/deleteModal.dart';
 import 'package:store_manager/models/stores.dart';
+import 'package:store_manager/screens/report.dart';
 
 class ItemCard extends StatelessWidget {
   final Store data;
   final Function GetItems;
   final Function(String) DeleteItems;
 
-  const ItemCard({
-    super.key,
-    required this.data,
-    required this.GetItems,
-    required this.DeleteItems
-  });
+  const ItemCard(
+      {super.key,
+      required this.data,
+      required this.GetItems,
+      required this.DeleteItems});
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +69,9 @@ class ItemCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 5,),
+                    SizedBox(
+                      height: 5,
+                    ),
                     Container(
                       width: 250,
                       child: Text(
@@ -82,15 +84,40 @@ class ItemCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 12,),
+                SizedBox(
+                  height: 12,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    UpdateStore(GetItems: GetItems, title: data.name, id: data.id,),
-                    DeleteModal(title: data.name, id: data.id, deleteFunc: DeleteItems,),
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Report(data: data)));
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.lightGreen),
+                        child: Text(
+                          'التفاصيل',
+                          style: TextStyle(color: Colors.white),
+                        )),
+                    // UpdateStore(
+                    //   // GetItems: GetItems,
+                    //   title: data.name,
+                    //   id: data.id,
+                    // ),
+                    DeleteModal(
+                      title: data.name,
+                      id: data.id,
+                      deleteFunc: DeleteItems,
+                    ),
                   ],
                 ),
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
               ],
             ),
           ),

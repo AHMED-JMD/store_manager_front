@@ -115,7 +115,19 @@ class _TransTableState extends State<TransTable> {
 
     final response = await TranApi.deleteTran(id);
 
-    if (response.statusCode == 200) {
+    if (response is DioException) {
+      DioException err = response;
+      return ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Center(
+          child: Text(
+            ' حدث خطأ ما',
+            style: TextStyle(fontSize: 20, color: Colors.white),
+          ),
+        ),
+        backgroundColor: Colors.redAccent,
+        duration: Duration(seconds: 2),
+      ));
+    } else if (response.statusCode == 200) {
       refresh(false);
       _getTrans();
       Navigator.pop(context);

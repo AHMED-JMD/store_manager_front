@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sidebarx/sidebarx.dart';
 import 'package:store_manager/API/account_api.dart';
 import 'package:store_manager/API/store_api.dart';
@@ -226,6 +227,9 @@ class _AddTransactState extends State<AddTransact> {
                                     ),
                                   ),
                                   keyboardType: TextInputType.number,
+                                  inputFormatters: <TextInputFormatter>[
+                                    FilteringTextInputFormatter.digitsOnly,
+                                  ],
                                   validator: (val) {
                                     if (val!.isEmpty)
                                       return 'الرجاء اختيار الكمية';
@@ -244,6 +248,9 @@ class _AddTransactState extends State<AddTransact> {
                                         ),
                                       ),
                                       keyboardType: TextInputType.number,
+                                      inputFormatters: <TextInputFormatter>[
+                                        FilteringTextInputFormatter.digitsOnly,
+                                      ],
                                       validator: (val) {
                                         if (val!.isEmpty)
                                           return 'الرجاء اختيار الكمية';
@@ -262,6 +269,9 @@ class _AddTransactState extends State<AddTransact> {
                                             color: Color.fromRGBO(2, 48, 71, 1),
                                           )),
                                       keyboardType: TextInputType.number,
+                                      inputFormatters: <TextInputFormatter>[
+                                        FilteringTextInputFormatter.digitsOnly,
+                                      ],
                                       validator: (val) {
                                         if (val!.isEmpty)
                                           return 'الرجاء اختيار الكمية';
